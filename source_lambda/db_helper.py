@@ -23,6 +23,7 @@ def get_current_users_and_roles(db_name, db_host, db_user, db_password):
 
             # Assuming 'user_roles' is a table or a field in your database
             cursor.execute("SELECT user AS role_name FROM mysql.user WHERE host = '%' AND NOT LENGTH(authentication_string);")
+            #TODO the above command is not working properly and needs to be updated
             roles = cursor.fetchall()  # Fetches all role rows
             print('role fetching' + str(roles))
             for role in roles:

@@ -1,12 +1,17 @@
-# AWS Lambda Functions for DynamoDB Operations
+# AWS Lambda Functions to scan RDS db users
 
-This repository contains two AWS Lambda functions for interacting with DynamoDB tables.
+This repository contains one AWS Lambda functions to scan RDS users and save it to DynamoDB tables and send delta to SQS.
+
+## Known Issues
+1. It only can retrieve users but NOT roles from MySQL db  
+2. It assume the username and password are stored in a simple dynamodb table and in reality it shouldn't be that way
+
 
 ## Files
 
-- `db_helper.py`: This script contains helper functions to interact with DynamoDB, such as retrieving current users and roles from a specified table.
+- `db_helper.py`: This script contains helper functions to interact with RDS, such as retrieving current users and roles.
 
-- `db_user_scanner_lambda.py`: This script defines a Lambda function that scans a DynamoDB table for users and roles, compares the results with another table, and performs updates based on the scan results.
+- `db_user_scanner_lambda.py`: This script defines a Lambda function that use a function defined in db_helper.py to scan RDS users and roles, compares the results with another table, and performs updates based on the scan results.
 
 ## Setup
 
