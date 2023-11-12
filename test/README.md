@@ -1,6 +1,6 @@
 # Test Conducted
 
-1. Create all test resources  
+1. Create all test resources via [the terraform script](../terraform_infra/infra.tf)  
     - 1 RDS MySQL instance as target db to be scannd,  
     - 2 dynamodb tables:
         - A: store a list of db (which has the 1 RDS db) and  
