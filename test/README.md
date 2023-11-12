@@ -10,6 +10,6 @@
 3. Run [main lambd function db_user_scanner()](../source_lambda/db_user_scanner_lambda.py) locally*, which is expected to
     - add new user to the 2nd dynamodb table created above  
     - send the new user info to a SQS queue for others to consume  
-* I initially had issue to get lambda run correctly on AWS but forgot whether I finally solved it or not. However, I know the python functions were executed successfully locally for sure.
+\* I initially had issue to get lambda run correctly on AWS but forgot whether I finally solved it or not. However, I know the python functions were executed successfully locally for sure.
 4. Observe SQS queue and saw new queue coming in with the newly added user in the RDS ![Sample SQS message](sample_sqs_message.png)
 
