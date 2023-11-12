@@ -13,4 +13,5 @@
 4. Observe SQS queue and saw new queue coming in with the newly added user in the RDS ![Sample SQS message](sample_sqs_message.png)
 
 ## Possible Issues
-I initially had issue to get lambda run correctly but forgot whether I finally solved it or not but I know the python functions were executed successfully locally for sure.
+I initially had issue to get lambda run correctly on AWS but forgot whether I finally solved it or not.   
+However, I know the python functions were executed successfully locally for sure.
