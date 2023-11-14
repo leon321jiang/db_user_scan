@@ -2,7 +2,7 @@ import pymysql
 
 # Connection parameters
 host_name = 'mydbinstance.cu53kqprya26.us-west-2.rds.amazonaws.com'  # Replace with your host, often it's 'localhost' or an IP address
-db_name = 'mytestsql_db'      # Replace with the name of your database
+db_host = 'mytestsql_db'      # Replace with the name of your database
 db_user = 'db_admin'    # Replace with your MySQL admin user
 db_password = 'QASEFduey34!'  # Replace with your MySQL admin password
 
@@ -22,7 +22,7 @@ try:
         cursor.execute(sql)
         
         # Grant all privileges on the database to the new user
-        sql = f"GRANT ALL PRIVILEGES ON `{db_name}`.* TO '{new_username}'@'{new_user_host}';"
+        sql = f"GRANT ALL PRIVILEGES ON `{db_host}`.* TO '{new_username}'@'{new_user_host}';"
         cursor.execute(sql)
 
         # It is important to flush privileges to ensure that the changes take effect
@@ -35,7 +35,7 @@ try:
         # Commit the changes
         connection.commit()
 
-        print(f"User {new_username} created successfully and granted all privileges on database {db_name}.")
+        print(f"User {new_username} created successfully and granted all privileges on database {db_host}.")
 
 except pymysql.MySQLError as e:
     print(f"Error: {e}")

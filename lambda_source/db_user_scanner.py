@@ -27,18 +27,19 @@ def db_user_scanner(event, context):
 
     # Process each onboarded database
     for db_info in onboarded_dbs:
-        process_database(db_info['db_name'],db_info['db_host'], db_info['db_user'], db_info['db_password'], db_info['db_engine'])
+        # Retrieve the current list of users and roles from the database
+        current_users, current_roles = get_current_users_and_roles(db_info['db_host'],db_info['db_name'], db_info['db_user'], db_info['db_password'], db_info['db_engine'])
+        update_users_roles_records(db_info['db_host'], current_users, current_roles, db_users_roles_table_name)
 
-def process_database(db_name, db_host, db_user, db_password, db_engine):
-    # Retrieve the current list of users and roles from the database (mocked function)
-    current_users, current_roles = get_current_users_and_roles(db_name,db_host, db_user, db_password, db_engine)
+
+def update_users_roles_records(db_host, current_users, current_roles, db_users_roles_table_name):
 
     # Access the 'db_users_roles' table
     db_users_roles_table = dynamodb.Table(db_users_roles_table_name)
 
     # Try to get the existing entry for the database
     try:
-        response = db_users_roles_table.get_item(Key={'db_name': db_name})
+        response = db_users_roles_table.get_item(Key={'db_host': db_host})
         existing_entry = response.get('Item', None)
         
         # Prepare the update expression
@@ -67,7 +68,7 @@ def process_database(db_name, db_host, db_user, db_password, db_engine):
         
         # Update the 'db_users_roles' table with new or updated entries
         db_users_roles_table.update_item(
-            Key={'db_name': db_name},
+            Key={'db_host': db_host},
             UpdateExpression=update_expression,
             ExpressionAttributeValues=expression_attribute_values
         )
@@ -75,14 +76,14 @@ def process_database(db_name, db_host, db_user, db_password, db_engine):
         # Send new users and roles to SQS queue
         if new_users or new_roles:
             message_payload = {
-                'db_name': db_name,
+                'db_host': db_host,
                 'new_users': new_users,
                 'new_roles': new_roles
             }
             sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(message_payload))
 
     except Exception as e:
-        print(f"Error processing database {db_name}: {str(e)}")
+        print(f"Error processing database {db_host}: {str(e)}")
 
 
 

@@ -1,6 +1,9 @@
 import pymysql
 
-def get_current_users_and_roles_mysql(db_name, db_host, db_user, db_password):
+def get_current_users_and_roles_mysql(db_host, db_name, db_user, db_password):
+    '''
+    return a list of users and roles for the given mysql db
+    '''
     conn = None # Initialize conn to None outside of the try block
     # Connect to the RDS database and query for user data
     try:

@@ -7,10 +7,10 @@ resource "aws_dynamodb_table" "onboarded_db_list" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "db_name"
+  hash_key       = "db_host"
 
   attribute {
-    name = "db_name"
+    name = "db_host"
     type = "S"
   }
 
@@ -24,10 +24,10 @@ resource "aws_dynamodb_table" "db_users_roles" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "db_name"
+  hash_key       = "db_host"
 
   attribute {
-    name = "db_name"
+    name = "db_host"
     type = "S"
   }
 
