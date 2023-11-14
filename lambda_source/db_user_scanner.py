@@ -13,7 +13,7 @@ sqs = boto3.client('sqs')
 #queue_url = os.getenv('SQS_QUEUE_URL')  # SQS queue URL for sending new user/role notifications
 #onboarded_db_list = os.getenv('DB_LIST_TABLE')
 db_users_roles_table_name = 'db_users_roles'
-queue_url = 'https://sqs.us-west-2.amazonaws.com/202053868822/db-scan-notification'
+sqs_queue_url = 'https://sqs.us-west-2.amazonaws.com/202053868822/db-scan-notification'
 onboarded_db_list = 'onboarded_db_list'
 
 def db_user_scanner(event, context):
@@ -80,7 +80,7 @@ def update_users_roles_records(db_host, current_users, current_roles, db_users_r
                 'new_users': new_users,
                 'new_roles': new_roles
             }
-            sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(message_payload))
+            sqs.send_message(QueueUrl=sqs_queue_url, MessageBody=json.dumps(message_payload))
 
     except Exception as e:
         print(f"Error processing database {db_host}: {str(e)}")
