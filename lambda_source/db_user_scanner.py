@@ -22,4 +22,6 @@ def db_user_scanner(event, context):
     for db_info in onboarded_dbs:
         # Retrieve the current list of users and roles from the database
         current_users, current_roles = get_current_users_and_roles(db_info['db_host'],db_info['db_name'], db_info['db_user'], db_info['db_password'], db_info['db_engine'])
+
+        #update records and send message to SQS as necessary
         update_users_roles_records(db_info['db_host'], current_users, current_roles, db_users_roles_table_name)
