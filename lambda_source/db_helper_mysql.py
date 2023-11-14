@@ -1,14 +1,6 @@
 import pymysql
-import boto3
 
-# variables
-REGION = 'us-west-2' #os.environ['REGION']
-
-# Initialize AWS SDK clients
-dynamodb = boto3.resource('dynamodb', region_name=REGION)
-sqs = boto3.client('sqs', region_name=REGION)
-
-def get_current_users_and_roles(db_name, db_host, db_user, db_password):
+def get_current_users_and_roles_mysql(db_name, db_host, db_user, db_password):
     conn = None # Initialize conn to None outside of the try block
     # Connect to the RDS database and query for user data
     try:
@@ -42,5 +34,3 @@ def get_current_users_and_roles(db_name, db_host, db_user, db_password):
     finally:
         if conn is not None and conn.open:
             conn.close()
-
-# The rest of the lambda function to process and compare with DynamoDB records remains the same.

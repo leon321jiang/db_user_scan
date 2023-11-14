@@ -1,0 +1,5 @@
+#boto3  # you don't need this for lambda
+#python-dateutil # if you need a version different than what comes with boto3
+pymysql
+psycopg2
+oracledb

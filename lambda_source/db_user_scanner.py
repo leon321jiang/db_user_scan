@@ -1,5 +1,4 @@
 import boto3
-import os
 import json
 from datetime import datetime
 from botocore.exceptions import ClientError
@@ -28,11 +27,11 @@ def db_user_scanner(event, context):
 
     # Process each onboarded database
     for db_info in onboarded_dbs:
-        process_database(db_info['db_name'],db_info['db_host'], db_info['db_user'], db_info['db_password'])
+        process_database(db_info['db_name'],db_info['db_host'], db_info['db_user'], db_info['db_password'], db_info['db_engine'])
 
-def process_database(db_name, db_host, db_user, db_password):
+def process_database(db_name, db_host, db_user, db_password, db_engine):
     # Retrieve the current list of users and roles from the database (mocked function)
-    current_users, current_roles = get_current_users_and_roles(db_name,db_host, db_user, db_password)
+    current_users, current_roles = get_current_users_and_roles(db_name,db_host, db_user, db_password, db_engine)
 
     # Access the 'db_users_roles' table
     db_users_roles_table = dynamodb.Table(db_users_roles_table_name)

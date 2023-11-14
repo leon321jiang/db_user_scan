@@ -1,5 +1,0 @@
-boto3  # specify the exact version you have tested with
-python-dateutil # if you need a version different than what comes with boto3
-# any other libraries your Lambda function uses
-pymysql
-botocore
