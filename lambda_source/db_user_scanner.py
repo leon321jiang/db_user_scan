@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
-from db_helper import get_current_users_and_roles
-from dynamo_ops import update_users_roles_records
+from .db_helper.db_helper import get_current_users_and_roles
+from .dynamo_ops import update_users_roles_records
 
 # Initialize AWS SDK clients
 dynamodb = boto3.resource('dynamodb')
